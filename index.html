@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden; 
+            background: url('微信图片_20250317123539.jpg') no-repeat center 30% fixed; /* 调整垂直位置为 30% */
+            background-size: cover; 
+ 
+    
+}
+            
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .falling-numbers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .number {
+            position: absolute;
+            color: white;
+            font-size: 20px;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            from { transform: translateY(-10vh); opacity: 1; }
+            to { transform: translateY(110vh); opacity: 0; }
+        }
+        
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .content a {
+            color: #00ccff;
+            text-decoration: none;
+        }
+
+        /* 右上角音量按钮样式 */
+        .audio-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .audio-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="falling-numbers"></div>
+    <div class="content">
+        <p>欢迎来到我的主页</p>
+        <p><a href="https://gitee.com/common-chines6e-name/first-year" target="_blank">我的 Gitee仓库</a></p>
+    </div>
+
+    <!-- 右上角音量控制按钮 -->
+    <button class="audio-btn" onclick="toggleAudio()">🔊</button>
+
+    <audio id="bg-music" autoplay loop>
+        <source src="屏幕录制 2025-03-17 112953.mp3" type="audio/mp3">
+    </audio>
+    
+    <script>
+        function createNumber() {
+            const num = document.createElement("div");
+            num.classList.add("number");
+            num.textContent = Math.random() > 0.5 ? "0" : "1";
+            num.style.left = Math.random() * 100 + "vw";
+            num.style.animationDuration = Math.random() * 3 + 2 + "s";
+            document.querySelector(".falling-numbers").appendChild(num);
+            setTimeout(() => num.remove(), 5000);
+        }
+        
+        setInterval(createNumber, 100);
+
+        // 音乐播放控制
+        function toggleAudio() {
+            const audio = document.getElementById("bg-music");
+            const btn = document.querySelector(".audio-btn");
+
+            if (audio.paused) {
+                audio.play();
+                btn.textContent = "🔊"; // 播放状态
+            } else {
+                audio.pause();
+                btn.textContent = "🔇"; // 静音状态
+            }
+        }
+    </script>
+</body>
+
+
+</html>
+
